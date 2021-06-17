@@ -42,41 +42,44 @@ class TopRatedDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun bindDetail() {
-        if (type == TYPE_MOVIE) {
-            topRatedDetailViewModel.getMovieDetail(itemId).observe(this, { resource ->
-                val movie = resource.data
-                supportActionBar?.title = movie?.title
-                with(binding) {
-                    Glide.with(root.context)
-                        .load("${TMDBWebservice.IMAGE_URL}${movie?.posterPath}")
-                        .into(imgPoster)
-                    tvTitle.text = movie?.title
-                    tvReleaseDate.text = movie?.releaseDate
-                    tvGenres.text = convertGenres(movie?.genres)
-                    tvVoteAverage.text = movie?.voteAverage.toString()
-                    tvOverview.text = movie?.overview
-                    fabFavorite.setImageDrawable(getFavoriteButtonDrawable(movie?.isFavorited!!))
-                    binding.fabFavorite.setOnClickListener(this@TopRatedDetailActivity)
-                }
-            })
-        } else {
-            topRatedDetailViewModel.getTvShowDetail(itemId).observe(this, { resource ->
-                val tvShow = resource.data
-                supportActionBar?.title = tvShow?.title
-                with(binding) {
-                    Glide.with(root.context)
-                        .load("${TMDBWebservice.IMAGE_URL}${tvShow?.posterPath}")
-                        .into(imgPoster)
-                    tvTitle.text = tvShow?.title
-                    tvReleaseDate.text = tvShow?.releaseDate
-                    tvGenres.text = convertGenres(tvShow?.genres)
-                    tvVoteAverage.text = tvShow?.voteAverage.toString()
-                    tvOverview.text = tvShow?.overview
-                    fabFavorite.setImageDrawable(getFavoriteButtonDrawable(tvShow?.isFavorited!!))
-                    binding.fabFavorite.setOnClickListener(this@TopRatedDetailActivity)
-                }
-            })
+        with(binding) {
+            if (type == TYPE_MOVIE) {
+                topRatedDetailViewModel.getMovieDetail(itemId)
+                    .observe(this@TopRatedDetailActivity, { resource ->
+                        val movie = resource.data
+                        supportActionBar?.title = movie?.title
+
+                        Glide.with(root.context)
+                            .load("${TMDBWebservice.IMAGE_URL}${movie?.posterPath}")
+                            .into(imgPoster)
+                        tvTitle.text = movie?.title
+                        tvReleaseDate.text = movie?.releaseDate
+                        tvGenres.text = convertGenres(movie?.genres)
+                        tvVoteAverage.text = movie?.voteAverage.toString()
+                        tvOverview.text = movie?.overview
+                        fabFavorite.setImageDrawable(getFavoriteButtonDrawable(movie?.isFavorited!!))
+                        fabFavorite.setOnClickListener(this@TopRatedDetailActivity)
+
+                    })
+            } else {
+                topRatedDetailViewModel.getTvShowDetail(itemId)
+                    .observe(this@TopRatedDetailActivity, { resource ->
+                        val tvShow = resource.data
+                        supportActionBar?.title = tvShow?.title
+                        Glide.with(root.context)
+                            .load("${TMDBWebservice.IMAGE_URL}${tvShow?.posterPath}")
+                            .into(imgPoster)
+                        tvTitle.text = tvShow?.title
+                        tvReleaseDate.text = tvShow?.releaseDate
+                        tvGenres.text = convertGenres(tvShow?.genres)
+                        tvVoteAverage.text = tvShow?.voteAverage.toString()
+                        tvOverview.text = tvShow?.overview
+                        fabFavorite.setImageDrawable(getFavoriteButtonDrawable(tvShow?.isFavorited!!))
+                        fabFavorite.setOnClickListener(this@TopRatedDetailActivity)
+                    })
+            }
         }
+
     }
 
     private fun convertGenres(genreResponses: List<GenreModel>?): String {

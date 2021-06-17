@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -26,7 +25,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@android:color/darker_gray" />
+                tools:src="@android:color/darker_gray"
+                tools:ignore="RequiredSize" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -35,7 +35,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/img_poster"
-                tools:text="Title" />
+                tools:text="Title"
+                tools:ignore="RequiredSize" />
 
             <TextView
                 android:id="@+id/tv_release_date"
@@ -54,7 +55,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_release_date"
-                tools:text="genres" />
+                tools:text="genres"
+                tools:ignore="RequiredSize" />
 
             <TextView
                 android:id="@+id/tv_vote_average"
@@ -65,7 +67,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_genres"
-                tools:text="average vote" />
+                tools:text="average vote"
+                tools:ignore="RequiredSize" />
 
 
             <TextView
@@ -74,7 +77,8 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/overview"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_vote_average" />
+                app:layout_constraintTop_toBottomOf="@id/tv_vote_average"
+                tools:ignore="RequiredSize" />
 
             <TextView
                 android:id="@+id/tv_overview"
@@ -82,7 +86,8 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/header_overview"
-                tools:text="Lorem ipsum" />
+                tools:text="Lorem ipsum"
+                tools:ignore="RequiredSize" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

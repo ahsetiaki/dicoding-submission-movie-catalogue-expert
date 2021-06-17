@@ -79,7 +79,7 @@ class FavoriteCatalogueFragment : Fragment(), CatalogueOnClickListener {
         activity?.startActivity(toDetailActivityIntent)
     }
 
-    internal fun inject() {
+    private fun inject() {
         DaggerFavoriteCatalogueFragmentComponent.builder()
             .context(requireContext())
             .appDependencies(

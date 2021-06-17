@@ -1,8 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
+        // gradle
+        gradle_version = '4.2.1'
+
         // kotlin
-        kotlin_version = "1.5.0"
+        kotlin_version = "1.5.10"
         kotlin_coroutines_version = "1.5.0"
 
         // dependency injection
@@ -24,6 +27,9 @@ buildscript {
         // retrofit
         retrofit_version = "2.9.0"
 
+        // logging interceptor
+        logginginterceptor_version = "4.9.1"
+
         // room
         room_version = "2.4.0-alpha02"
 
@@ -38,13 +44,20 @@ buildscript {
         ax_junit_ext_version = "1.1.2"
         ax_espresso_version = "3.3.0"
         annotation_version = "1.2.0"
+
+        // leak canary
+        leakcanary_version = "2.7"
+
+        // database encryption
+        android_database_sqlcipher_version = "4.4.3"
+        sqlite_ktx_version = "2.1.0"
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0"
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
 

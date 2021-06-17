@@ -6,10 +6,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
-import com.setiaki.moviecatalogueexpert.favorite.R
 import com.setiaki.moviecatalogueexpert.core.data.remote.api.TMDBWebservice
 import com.setiaki.moviecatalogueexpert.core.domain.model.GenreModel
 import com.setiaki.moviecatalogueexpert.di.FavoriteModuleDependencies
+import com.setiaki.moviecatalogueexpert.favorite.R
 import com.setiaki.moviecatalogueexpert.favorite.databinding.ActivityFavoriteDetailBinding
 import com.setiaki.moviecatalogueexpert.favorite.di.DaggerFavoriteDetailActivityComponent
 import dagger.hilt.android.EntryPointAccessors
@@ -45,7 +45,7 @@ class FavoriteDetailActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    internal fun inject() {
+    private fun inject() {
         DaggerFavoriteDetailActivityComponent.builder()
             .context(this)
             .appDependencies(
@@ -59,41 +59,43 @@ class FavoriteDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun bindDetail() {
-        if (type == TYPE_MOVIE) {
-            favoriteDetailViewModel.getMovieDetail(itemId).observe(this, { resource ->
-                val movie = resource.data
-                supportActionBar?.title = movie?.title
-                with(binding) {
-                    Glide.with(root.context)
-                        .load("${TMDBWebservice.IMAGE_URL}${movie?.posterPath}")
-                        .into(imgPoster)
-                    tvTitle.text = movie?.title
-                    tvReleaseDate.text = movie?.releaseDate
-                    tvGenres.text = convertGenres(movie?.genres)
-                    tvVoteAverage.text = movie?.voteAverage.toString()
-                    tvOverview.text = movie?.overview
-                    fabFavorite.setImageDrawable(getFavoriteButtonDrawable(movie?.isFavorited!!))
-                    binding.fabFavorite.setOnClickListener(this@FavoriteDetailActivity)
-                }
-            })
-        } else {
-            favoriteDetailViewModel.getTvShowDetail(itemId).observe(this, { resource ->
-                val tvShow = resource.data
-                supportActionBar?.title = tvShow?.title
-                with(binding) {
-                    Glide.with(root.context)
-                        .load("${TMDBWebservice.IMAGE_URL}${tvShow?.posterPath}")
-                        .into(imgPoster)
-                    tvTitle.text = tvShow?.title
-                    tvReleaseDate.text = tvShow?.releaseDate
-                    tvGenres.text = convertGenres(tvShow?.genres)
-                    tvVoteAverage.text = tvShow?.voteAverage.toString()
-                    tvOverview.text = tvShow?.overview
-                    fabFavorite.setImageDrawable(getFavoriteButtonDrawable(tvShow?.isFavorited!!))
-                    binding.fabFavorite.setOnClickListener(this@FavoriteDetailActivity)
-                }
-            })
+        with(binding) {
+            if (type == TYPE_MOVIE) {
+                favoriteDetailViewModel.getMovieDetail(itemId)
+                    .observe(this@FavoriteDetailActivity, { resource ->
+                        val movie = resource.data
+                        supportActionBar?.title = movie?.title
+
+                        Glide.with(root.context)
+                            .load("${TMDBWebservice.IMAGE_URL}${movie?.posterPath}")
+                            .into(imgPoster)
+                        tvTitle.text = movie?.title
+                        tvReleaseDate.text = movie?.releaseDate
+                        tvGenres.text = convertGenres(movie?.genres)
+                        tvVoteAverage.text = movie?.voteAverage.toString()
+                        tvOverview.text = movie?.overview
+                        fabFavorite.setImageDrawable(getFavoriteButtonDrawable(movie?.isFavorited!!))
+                        fabFavorite.setOnClickListener(this@FavoriteDetailActivity)
+                    })
+            } else {
+                favoriteDetailViewModel.getTvShowDetail(itemId)
+                    .observe(this@FavoriteDetailActivity, { resource ->
+                        val tvShow = resource.data
+                        supportActionBar?.title = tvShow?.title
+                        Glide.with(root.context)
+                            .load("${TMDBWebservice.IMAGE_URL}${tvShow?.posterPath}")
+                            .into(imgPoster)
+                        tvTitle.text = tvShow?.title
+                        tvReleaseDate.text = tvShow?.releaseDate
+                        tvGenres.text = convertGenres(tvShow?.genres)
+                        tvVoteAverage.text = tvShow?.voteAverage.toString()
+                        tvOverview.text = tvShow?.overview
+                        fabFavorite.setImageDrawable(getFavoriteButtonDrawable(tvShow?.isFavorited!!))
+                        fabFavorite.setOnClickListener(this@FavoriteDetailActivity)
+                    })
+            }
         }
+
     }
 
     private fun convertGenres(genreResponses: List<GenreModel>?): String {

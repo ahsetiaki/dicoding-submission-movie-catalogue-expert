@@ -5,11 +5,16 @@ import com.setiaki.moviecatalogueexpert.core.data.remote.response.MovieResponse
 import com.setiaki.moviecatalogueexpert.core.data.remote.response.MovieTopRatedResponse
 import com.setiaki.moviecatalogueexpert.core.data.remote.response.TvShowResponse
 import com.setiaki.moviecatalogueexpert.core.data.remote.response.TvShowTopRatedResponse
+import okhttp3.CertificatePinner
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 
 interface TMDBWebservice {
@@ -48,9 +53,26 @@ interface TMDBWebservice {
         const val TMDB_STARTING_PAGE_INDEX = 1
         const val NETWORK_SIZE = 20
 
+        private val logger = HttpLoggingInterceptor().apply { level = Level.BODY }
+
+        private const val hostname = "api.themoviedb.org"
+        private val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/+vqZVAzTqUP8BGkfl88yU7SQ3C8J2uNEa55B7RZjEg0=")
+            .add(hostname, "sha256/JSMzqOOrtyOT1kmau6zKhgT676hGgczD5VMdRMyJZFA=")
+            .add(hostname, "sha256/++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=")
+            .build()
+
+        private val client = OkHttpClient.Builder()
+            .addInterceptor(logger)
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
+            .build()
+
         fun create(): TMDBWebservice {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(TMDBWebservice::class.java)

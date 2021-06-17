@@ -1,0 +1,33 @@
+<resources>
+    <style name="DetailPoster">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">300dp</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+    <style name="Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="Text.Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="Text.Title.Detail">
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="Text.Header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Text.Description">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Text.Description.Center">
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="RecyclerView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_behavior">@string/appbar_scrolling_view_behavior</item>
+    </style>
+</resources>

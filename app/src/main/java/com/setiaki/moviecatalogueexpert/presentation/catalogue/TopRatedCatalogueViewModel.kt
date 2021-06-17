@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.setiaki.moviecatalogueexpert.core.domain.model.MovieModel
 import com.setiaki.moviecatalogueexpert.core.domain.model.TvShowModel
-import com.setiaki.moviecatalogueexpert.core.domain.usecase.catalogue.GetFavoritedUseCase
 import com.setiaki.moviecatalogueexpert.core.domain.usecase.catalogue.GetTopRatedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
